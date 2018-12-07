@@ -93,14 +93,10 @@ function makeReplyMsg(event, msg) {
 
 function findCountry(distinctCountry, msg) {
 
-    distinctCountry.forEach(function (data, index) {
-        if (msg.indexOf(data) > -1) {
-            console.log('找到data' , data);
-            return data;
-        } else {
-            return '';
-        }
+    var targetCity = distinctCountry.find(function (data, index) {
+        return msg.indexOf(data) > -1;
     });
+    return targetCity;
 }
 
 
