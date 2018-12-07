@@ -34,31 +34,11 @@ function _botStart() {
     });
 }
 
-
 function ResponseMsg(event, msg) {
     event.reply(msg).then(function (data) {
-        console.log("我有印東西出來" + msg);
+        console.log("回覆內容 : " + msg);
     }).catch(function (error) {
         console.log('error = ' + error);
     });
 }
-//Find array elements from msg
-//return 
 
-
-
-
-
-
-function _getAQILevel(aqi){
-    var result ;
-    if(aqi > 100){
-        result = "快戴上口罩，要變人體空氣清淨機了！ \n _(┐「﹃ﾟ｡)_"
-    }
-    else if (aqi >50){
-        result = "還行還行，但又不太行呢！ \n (`・ω・´)";
-    }
-    else{
-        result ="今日も空気が美しいです。\n  ξ( ✿＞◡❛)";
-    }
-}
