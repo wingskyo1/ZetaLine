@@ -26,10 +26,13 @@ _botStart();
 function _botStart() {
     bot.on('message', function (event) {
         var sendMsg;
-        if(event.message.text=="功能!"){
+        if(event.message.text==="功能!"){
             sendMsg = "目前只有查詢空氣的功能，請輸入\"空氣!\"來查詢！"
         }
        sendMsg =  aqi.aqiReport(event);
+
+
+       if(sendMsg!='')
        ResponseMsg(event,sendMsg);
     });
 }
