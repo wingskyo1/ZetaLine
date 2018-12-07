@@ -58,14 +58,14 @@ function npmfilter(event) {
             if (replyMsg == '') {
                 replyMsg = '輸入的區域可能沒有空氣監測 ^_^|||, 是在什麼城市呢 ? (^ρ^)/ ';
             }
-            makeReplyMsg(replyMsg);
+            makeReplyMsg(event , replyMsg);
         }
         return '';
     }
    
 }
 
-function makeReplyMsg(msg) {
+function makeReplyMsg(event, msg) {
     event.reply(msg).then(function (data) {
         console.log("我有印東西出來" + replyMsg);
     }).catch(function (error) {
