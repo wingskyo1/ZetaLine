@@ -54,6 +54,7 @@ function npmfilter(event) {
                         });
                     }
                     replyMsg += " \n ヽ( ° ▽°)ノ";
+                    break;
                 }
             });
             if (replyMsg == '') {
