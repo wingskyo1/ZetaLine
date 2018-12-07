@@ -44,19 +44,27 @@ function npmfilter(event) {
                 if (msg.indexOf(e.SiteName) != -1) {
                     console.log("有找到站台", e.SiteName);
                     replyMsg = e.County + e.SiteName + '\n PM2.5 數值為 ' + e.pm + '\n 空氣品質 AQI 為 ' + e.AQI;
-                } else if (msg.indexOf(e.County) != -1) {
-                    console.log("沒找到站台但是有找到城市", e.County);
-                    replyMsg += e.County + " 設有檢測站的區域有 \n "
-                    const result = regionData.filter(data => data.County === e.County);
+                }
+            });
+
+
+
+            if (replyMsg === '') {
+                var targetCountry = findCountry(distinctCountry, msg)
+                if (targetCountry !== '') {
+                    console.log("沒找到站台但是有找到城市", targetCountry);
+                    replyMsg += targetCountry + " 設有檢測站的區域有 \n "
+                    const result = regionData.filter(data => data.County === targetCountry);
                     if (result.length !== 0) {
                         result.forEach(function (data, index) {
                             replyMsg += data.SiteName + ", ";
                         });
                     }
                     replyMsg += " \n ヽ( ° ▽°)ノ";
-                    break;
+
                 }
-            });
+            }
+
             if (replyMsg == '') {
                 replyMsg = '輸入的區域可能沒有空氣監測 ^_^|||, 是在什麼城市呢 ? (^ρ^)/ \n';
                 distinctCountry.forEach(function (data, index) {
@@ -70,8 +78,6 @@ function npmfilter(event) {
             makeReplyMsg(event, replyMsg);
         }
     }
-
-
 }
 
 function makeReplyMsg(event, msg) {
@@ -81,6 +87,21 @@ function makeReplyMsg(event, msg) {
         console.log('error = ' + error);
     });
 }
+
+function findCountry(distinctCountry, msg) {
+
+    distinctCountry.forEach(function (data, index) {
+        if (msg.indexOf(data)) {
+            return data;
+        } else {
+            return '';
+        }
+    });
+}
+
+
+
+
 
 function _getJSON() {
     clearTimeout(timer);
