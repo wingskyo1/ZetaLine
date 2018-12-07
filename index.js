@@ -9,13 +9,8 @@ var bot = linebot({
     channelAccessToken: 'vfUeCL+a4I9SUwH24sfN1Ak9spTN/dRaAO6Ix1LsSMmMQsweU3Z/FNLzg/rUmRfYep5tjKw6ZK1OzgOW3kcMZgZplJLpIRmr9bxH2gDzfUvUfKf3oCO2vgq9K/jcLiGUZdlqHvjxn96lqBh57B1uegdB04t89/1O/w1cDnyilFU='
 });
 
-var timer;
-var regionData = [];
-var distinctCountry = [] ;
+
 aqi._getAQIJSON();
-
-
-
 _botStart();
 
 const app = express();
@@ -30,7 +25,8 @@ var server = app.listen(process.env.PORT || 8080, function () {
 
 function _botStart() {
     bot.on('message', function (event) {
-        aqi.npmfilter(event);
+       var aqimsg =  aqi.npmfilter(event);
+       makeReplyMsg(event,aqimsg);
     });
 
 }

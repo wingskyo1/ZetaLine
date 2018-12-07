@@ -51,7 +51,8 @@ module.exports = {
 
         }
         if (replyMsg !== '') {
-            makeReplyMsg(event, replyMsg);
+           return replyMsg;
+            // makeReplyMsg(event, replyMsg);
         }
     }
 },
