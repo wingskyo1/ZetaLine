@@ -126,4 +126,4 @@ function _getAQIJSON() {
     timer = setInterval(_getAQIJSON, 1800000); //每半小時抓取一次新資料
 }
 
-function _get
+//function _get
