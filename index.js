@@ -94,7 +94,7 @@ function makeReplyMsg(event, msg) {
 function findCountry(distinctCountry, msg) {
 
     distinctCountry.forEach(function (data, index) {
-        if (msg.indexOf(data)) {
+        if (msg.indexOf(data) > -1) {
             console.log('找到data' , data);
             return data;
         } else {
