@@ -23,21 +23,23 @@ aqi._getAQIJSON();
 //機器人醒來開始收訊息
 _botStart();
 
-function _botStart() {
+function _botStart () {
     bot.on('message', function (event) {
         var sendMsg;
-        if(event.message.text==="功能!"){
+        console.log("收到 : "+event.message.text);
+        if (event.message.text === "功能!") {
             sendMsg = "目前只有查詢空氣的功能，請輸入\"空氣!\"來查詢！"
         }
-       sendMsg =  aqi.aqiReport(event);
+        sendMsg = aqi.aqiReport(event);
 
 
-       if(sendMsg!='')
-       ResponseMsg(event,sendMsg);
+        if (sendMsg !== undefined) {
+            ResponseMsg(event, sendMsg);
+        }
     });
 }
 
-function ResponseMsg(event, msg) {
+function ResponseMsg (event, msg) {
     event.reply(msg).then(function (data) {
         console.log("回覆內容 : " + msg);
     }).catch(function (error) {
