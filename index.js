@@ -59,10 +59,9 @@ var bot = linebot({
           console.log('error');
         });
     }
+}
 
-
-
-  function _getJSON() {
+function _getJSON() {
     clearTimeout(timer);
     getJSON('http://opendata2.epa.gov.tw/AQX.json', function(error, response) {
       response.forEach(function(e, i) {
@@ -74,6 +73,3 @@ var bot = linebot({
     });
     timer = setInterval(_getJSON, 1800000); //每半小時抓取一次新資料
   }
-  
-}
-
