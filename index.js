@@ -64,12 +64,13 @@ var bot = linebot({
 function _getJSON() {
     clearTimeout(timer);
     getJSON('http://opendata2.epa.gov.tw/AQX.json', function(error, response) {
-      response.forEach(function(e, i) {
-        pm[i] = [];
-        pm[i][0] = e.SiteName;
-        pm[i][1] = e['PM2.5'] * 1;
-        pm[i][2] = e.PM10 * 1;
-      });
+        console.log(response);
+    //   response.forEach(function(e, i) {
+    //     pm[i] = [];
+    //     pm[i][0] = e.SiteName;
+    //     pm[i][1] = e['PM2.5'] * 1;
+    //     pm[i][2] = e.PM10 * 1;
+    //   });
     });
     timer = setInterval(_getJSON, 1800000); //每半小時抓取一次新資料
   }
