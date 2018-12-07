@@ -55,8 +55,8 @@ module.exports = {
     showResult: function (siteIndex) {
         var targetSiteList = dataFromApi.filter(data => data.County === targetCountry)
         var target = targetSiteList[siteIndex];
-        var replyMsg = " 城市 : "+target.County + "\n 觀測站 : \n" + target.SiteName + '\n PM2.5 : ' + target.pm + '\n 空氣AQI : ' + target.AQI +  '\n 風速 : ' + target.WindSpeed + '\n 監測時間 : ' + target.PublishTime +" \n\n";
-        replyMsg += this.getAdvise(target.AQI);
+        var replyMsg = " 城市 : "+target.County + "\n 觀測站 : " + target.SiteName + '\n\n PM2.5 : ' + target.pm + '\n 空氣AQI : ' + target.AQI +  '\n 風速 : ' + target.WindSpeed + '\n 監測時間 : ' + target.PublishTime +" \n\n";
+        replyMsg += "空氣點評" + this.getAdvise(target.AQI);
         return replyMsg;
     },
 
