@@ -1,0 +1,19 @@
+{
+  "name": "zeta",
+  "version": "1.0.0",
+  "description": "LineBot",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ."
+  },
+  "keywords": [
+    "LineBot"
+  ],
+  "author": "Wing",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.4",
+    "linebot": "^1.4.1"
+  }
+}
