@@ -63,7 +63,7 @@ var bot = linebot({
 
 function _getJSON() {
     clearTimeout(timer);
-    getJSON('https://opendata.epa.gov.tw/webapi/api/rest/datastore/355000000I-000259/?format=json&sort=County', function(error, response) {
+    getJSON('http://opendata.epa.gov.tw/webapi/api/rest/datastore/355000000I-000259/?format=json&sort=County', function(error, response) {
         console.log("回應內容 "+response);
         console.log("error"+error);
     //   response.result.records.forEach(function(e, i) {
