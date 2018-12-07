@@ -11,10 +11,13 @@ var bot = linebot({
 
 var timer;
 var regionData = [];
-
+var distinctCountry = [] ;
 _getJSON();
-var distinctCountry = [...new Set(regionData.map(x => x.County))];
-_bot();
+setTimeout(()=>console.log("後面的 : "+distinctCountry) , 3000)
+
+
+_botStart();
+
 const app = express();
 const linebotParser = bot.parser();
 app.post('/', linebotParser);
@@ -25,7 +28,7 @@ var server = app.listen(process.env.PORT || 8080, function () {
     console.log("App now running on port", port);
 });
 
-function _bot() {
+function _botStart() {
     bot.on('message', function (event) {
         npmfilter(event);
     });
@@ -92,6 +95,7 @@ function findCountry(distinctCountry, msg) {
 
     distinctCountry.forEach(function (data, index) {
         if (msg.indexOf(data)) {
+            console.log('找到data' , data);
             return data;
         } else {
             return '';
@@ -118,7 +122,9 @@ function _getJSON() {
 
         });
 
-        //console.log(distinctCountry);
+
+        distinctCountry = [...new Set(regionData.map(x => x.County))];
+        console.log("前面的 : "+distinctCountry);
     });
     timer = setInterval(_getJSON, 1800000); //每半小時抓取一次新資料
 }
