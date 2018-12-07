@@ -38,7 +38,7 @@ var bot = linebot({
     if (event.message.type == 'text') {
         var msg = event.message.text;
         var replyMsg = '';
-        if (msg.indexOf('PM2.5') != -1) {
+        if (srcTag.match( /(pm2.5|空氣)/ )) {
           pm.forEach(function(e, i) {
             if (msg.indexOf(e[0]) != -1) {
               replyMsg =e[1] + e[0] + '的 PM2.5 數值為 ' + e[3] + ' 空氣品質 AQI 為 '+e[2];
