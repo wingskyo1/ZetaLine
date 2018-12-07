@@ -64,13 +64,14 @@ var bot = linebot({
 function _getJSON() {
     clearTimeout(timer);
     getJSON('https://opendata.epa.gov.tw/webapi/api/rest/datastore/355000000I-000259/?format=json&sort=County', function(error, response) {
-        console.log(response);
-      response.result.records.forEach(function(e, i) {
-        pm[i] = [];
-        pm[i][0] = e.SiteName;
-        pm[i][1] = e['PM2.5'] * 1;
-        pm[i][2] = e.PM10 * 1;
-      });
+        console.log("回應內容 "+response);
+        console.log("error"+error);
+    //   response.result.records.forEach(function(e, i) {
+    //     pm[i] = [];
+    //     pm[i][0] = e.SiteName;
+    //     pm[i][1] = e['PM2.5'] * 1;
+    //     pm[i][2] = e.PM10 * 1;
+    //   });
     });
     timer = setInterval(_getJSON, 1800000); //每半小時抓取一次新資料
   }
