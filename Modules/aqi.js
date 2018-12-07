@@ -95,7 +95,7 @@ _getAQIJSON:function  () {
     timer = setInterval(this._getAQIJSON, 1800000); //每半小時抓取一次新資料
 },
 
-getAQILevel:function  (aqi) {
+getAQILevel : function(aqi) {
     var result;
     if (aqi > 100) {
         result = "快戴上口罩，要變人體空氣清淨機了！ \n _(┐「﹃ﾟ｡)_"
