@@ -11,7 +11,7 @@ module.exports = {
         if (event.message.type == 'text') {
             var msg = event.message.text;
             var replyMsg = '';
-            if (msg.match(/(pm2.5|空氣)/)) {
+            if (msg.match(/(空氣!)/)) {
                 replyMsg = this.showCountry();
                 status = 1;
             }
@@ -56,7 +56,7 @@ module.exports = {
         var targetSiteList = dataFromApi.filter(data => data.County === targetCountry)
         var target = targetSiteList[siteIndex];
         var replyMsg = " 城市 : "+target.County + "\n 觀測站 : " + target.SiteName + '\n\n PM2.5 : ' + target.pm + '\n 空氣AQI : ' + target.AQI +  '\n 風速 : ' + target.WindSpeed + '\n 監測時間 : ' + target.PublishTime +" \n\n";
-        replyMsg += "空氣點評" + this.getAdvise(target.AQI);
+        replyMsg += "小評：" + this.getAdvise(target.AQI);
         return replyMsg;
     },
 
