@@ -84,6 +84,8 @@ module.exports = {
                 dataFromApi[i].AQI = e.AQI;
                 dataFromApi[i].pm = e['PM2.5'] * 1;
                 dataFromApi[i].PM10 = e.PM10 * 1;
+                dataFromApi[i].WindSpeed = e.WindSpeed * 1;
+                dataFromApi[i].PublishTime = e.PublishTime ;
             });
             countryList = [...new Set(dataFromApi.map(x => x.County))];
             console.log("前面的 : " + countryList);
