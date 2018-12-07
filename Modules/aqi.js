@@ -20,7 +20,7 @@ module.exports = {
                 if (msg.indexOf(e.SiteName) != -1) {
                     console.log("有找到站台", e.SiteName);
                     replyMsg = e.County + "\n觀測台 : " + e.SiteName + '\n PM2.5 : ' + e.pm + '\n 空氣AQI : ' + e.AQI +" \n";
-                    replyMsg += _getAQILevel(e.AQI);
+                    replyMsg += this._getAQILevel(e.AQI);
                 }
             });
 
