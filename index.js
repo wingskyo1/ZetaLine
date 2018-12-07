@@ -12,7 +12,8 @@ var bot = linebot({
   });
 
   var timer;
-  var pm = [];
+  var regionData = [];
+  var test22=[];
   _getJSON();
   
   _bot();
@@ -34,23 +35,29 @@ var bot = linebot({
   }
   
   function npmfilter(event){
-
     if (event.message.type == 'text') {
         var msg = event.message.text;
         var replyMsg = '';
         if (msg.match( /(pm2.5|空氣)/ )) {
-          pm.forEach(function(e, i) {
-            if (msg.indexOf(e[0]) != -1) {
-              replyMsg =e[1] + e[0] + '的 PM2.5 數值為 ' + e[3] + ' 空氣品質 AQI 為 '+e[2];
+          regionData.forEach(function(e, i) {
+            if (msg.indexOf(e.SiteName) != -1) {
+                replyMsg =e.County + e.SiteName + '\n PM2.5 數值為 ' + e.pm + '\n 空氣品質 AQI 為 '+e.AQI;
+            }
+            else if (_hasCountry(msg)!==''){
+                replyMsg +=e.County +" 設有檢測站的區域有 \n "
+                const result = regionData.filter(data => data.County === e.County);
+                if(result.length !==0){
+                    result.forEach(function(data,index){
+                        replyMsg += data + ", ";
+                    });
+                }
             }
           });
           if (replyMsg == '') {
-            replyMsg = '你想知道什麼區的PM2.5呢 ? ヽ( ° ▽°)ノ';
+            replyMsg = '你所輸入的區可能沒有空氣監測,你想問的地方在什麼城市呢 ? ヽ( ° ▽°)ノ ';
           }
         }
-        if (replyMsg == '') {
             return '';
-          replyMsg = '不知道「'+msg+'」是什麼意思 :p';
         }
   
         event.reply(replyMsg).then(function(data) {
@@ -58,8 +65,21 @@ var bot = linebot({
         }).catch(function(error) {
           console.log('error');
         });
-    }
+    
 }
+
+function _hasCountry(msg){
+
+    County.forEach(function(element){
+        if(msg.indexOf(element)){
+            return element;
+        }
+        else return '';
+    });
+
+
+}
+
 
 function _getJSON() {
     clearTimeout(timer);
@@ -73,14 +93,18 @@ function _getJSON() {
         //console.log("回應內容 "+data);
 
         response.result.records.forEach(function(e, i) {
-         pm[i] = [];
-         pm[i][0] = e.SiteName;
-         pm[i][1] = e.County;
-         pm[i][2] = e.AQI;
-         pm[i][3] = e['PM2.5'] * 1;
-         pm[i][4] = e.PM10 * 1;
+         regionData[i] = [];
+         regionData[i].SiteName = e.SiteName;
+         regionData[i].County = e.County;
+         regionData[i].AQI = e.AQI;
+         regionData[i].pm = e['PM2.5'] * 1;
+         regionData[i].PM10 = e.PM10 * 1;
+         //test22[i] = [];
+
        });
-       console.log(pm);
+       const distinctCountry = [...new Set(regionData.map(x=>x.County))]
+       console.log(distinctCountry);
     });
     timer = setInterval(_getJSON, 1800000); //每半小時抓取一次新資料
   }
+  
