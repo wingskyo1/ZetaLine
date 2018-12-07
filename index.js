@@ -38,11 +38,14 @@ var bot = linebot({
         var msg = event.message.text;
         var replyMsg = '';
         if (msg.match( /(pm2.5|空氣)/ )) {
+            console.log("符合關鍵字");
           regionData.forEach(function(e, i) {
             if (msg.indexOf(e.SiteName) != -1) {
+                console.log("有找到站台", e.SiteName);
                 replyMsg =e.County + e.SiteName + '\n PM2.5 數值為 ' + e.pm + '\n 空氣品質 AQI 為 '+e.AQI;
             }
             else if (msg.indexOf(e.County) != -1){
+                console.log("沒找到站台但是有找到城市",e.County);
                 replyMsg +=e.County +" 設有檢測站的區域有 \n "
                 const result = regionData.filter(data => data.County === e.County);
                 if(result.length !==0){
@@ -61,7 +64,7 @@ var bot = linebot({
         }
   
         event.reply(replyMsg).then(function(data) {
-          console.log(replyMsg);
+          console.log("我有印東西出來" + replyMsg);
         }).catch(function(error) {
           console.log('error');
         });
