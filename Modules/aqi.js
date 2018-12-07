@@ -3,6 +3,7 @@ var getJSON = require('get-json');
 var timer;
 var dataFromApi = [];
 var countryList = [];
+var targetCountry ='';
 var status = 0;
 
 module.exports = {
@@ -39,7 +40,7 @@ module.exports = {
 
     showSiteList: function (countryIndex) {
         var replyMsg = '';
-        var targetCountry = countryList[countryIndex];
+        targetCountry = countryList[countryIndex];
         replyMsg += targetCountry + " 設有檢測站的區域有 \n "
         const result = dataFromApi.filter(data => data.County === targetCountry);
         if (result.length !== 0) {
@@ -52,23 +53,12 @@ module.exports = {
     },
 
     showResult: function (siteIndex) {
-        var target = dataFromApi[siteIndex];
+        var targetSiteList = dataFromApi.filter(data => data.County === targetCountry)
+        var target = targetSiteList[siteIndex];
         var replyMsg = target.County + "\n觀測台 : " + target.SiteName + '\n PM2.5 : ' + target.pm + '\n 空氣AQI : ' + target.AQI + " \n";
 
         return replyMsg;
     },
-
-
-    findCountry: function (distinctCountry, msg) {
-        var targetCity = distinctCountry.find(function (data, index) {
-            return msg.indexOf(data.substring(0, 2)) > -1;
-        });
-        console.log(targetCity);
-        return targetCity;
-    },
-
-
-
 
 
     _getAQIJSON: function () {
