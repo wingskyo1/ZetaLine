@@ -1,7 +1,7 @@
 var linebot = require('linebot');
 var express = require('express');
 var getJSON = require('get-json');
-
+var aqi = require('./Modules/aqi');
 
 var bot = linebot({
     channelId: '1628760097',
@@ -12,8 +12,8 @@ var bot = linebot({
 var timer;
 var regionData = [];
 var distinctCountry = [] ;
-_getAQIJSON();
-//setTimeout(()=>console.log("後面的 : "+distinctCountry) , 3000)
+aqi._getAQIJSON();
+
 
 
 _botStart();
@@ -30,58 +30,12 @@ var server = app.listen(process.env.PORT || 8080, function () {
 
 function _botStart() {
     bot.on('message', function (event) {
-        npmfilter(event);
+        aqi.npmfilter(event);
     });
 
 }
 
-function npmfilter(event) {
-    if (event.message.type == 'text') {
-        var msg = event.message.text;
-        var replyMsg = '';
-        if (msg.match(/(pm2.5|空氣)/)) {
-            console.log("符合關鍵字");
-            //console.log(regionData);
-            regionData.forEach(function (e, i) {
-                //console.log("開始尋找站台")
-                if (msg.indexOf(e.SiteName) != -1) {
-                    console.log("有找到站台", e.SiteName);
-                    replyMsg = e.County +"\n觀測台 : "+ e.SiteName + '\n PM2.5 : ' + e.pm + '\n 空氣AQI : ' + e.AQI;
-                }
-            });
 
-
-
-            if (replyMsg === '') {
-                var targetCountry = findCountry(distinctCountry, msg)
-                if (targetCountry !== undefined) {
-                    console.log("沒找到站台但是有找到城市", targetCountry);
-                    replyMsg += targetCountry + " 設有檢測站的區域有 \n "
-                    const result = regionData.filter(data => data.County === targetCountry);
-                    if (result.length !== 0) {
-                        result.forEach(function (data, index) {
-                            replyMsg += data.SiteName + ", ";
-                        });
-                    }
-                    replyMsg += " \n ヽ( ° ▽°)ノ";
-
-                }
-            }
-
-            if (replyMsg == '') {
-                replyMsg = '輸入的區域可能沒有空氣監測 ^_^||| \n 在什麼城市呢 ? (^ρ^)/  \n\n';
-                distinctCountry.forEach(function (data, index) {
-                    replyMsg += data + ", "
-
-                })
-            }
-
-        }
-        if (replyMsg !== '') {
-            makeReplyMsg(event, replyMsg);
-        }
-    }
-}
 
 function makeReplyMsg(event, msg) {
     event.reply(msg).then(function (data) {
@@ -90,41 +44,13 @@ function makeReplyMsg(event, msg) {
         console.log('error = ' + error);
     });
 }
-
-function findCountry(distinctCountry, msg) {
-
-    var targetCity = distinctCountry.find(function (data, index) {
-        return msg.indexOf(data.substring(0,2)) > -1;
-    });
-    console.log(targetCity);
-    return targetCity;
-}
+//Find array elements from msg
+//return 
 
 
 
 
 
-function _getAQIJSON() {
-    clearTimeout(timer);
-    getJSON('http://opendata.epa.gov.tw/webapi/api/rest/datastore/355000000I-000259/?format=json&sort=County', function (error, response) {
-
-
-        response.result.records.forEach(function (e, i) {
-            regionData[i] = [];
-            regionData[i].SiteName = e.SiteName;
-            regionData[i].County = e.County;
-            regionData[i].AQI = e.AQI;
-            regionData[i].pm = e['PM2.5'] * 1;
-            regionData[i].PM10 = e.PM10 * 1;
-
-        });
-
-
-        distinctCountry = [...new Set(regionData.map(x => x.County))];
-        console.log("前面的 : "+distinctCountry);
-    });
-    timer = setInterval(_getAQIJSON, 1800000); //每半小時抓取一次新資料
-}
 
 function _getAQILevel(aqi){
     var result ;
