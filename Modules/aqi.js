@@ -55,11 +55,10 @@ module.exports = {
     showResult: function (siteIndex) {
         var targetSiteList = dataFromApi.filter(data => data.County === targetCountry)
         var target = targetSiteList[siteIndex];
-        var replyMsg = target.County + "\n觀測台 : " + target.SiteName + '\n PM2.5 : ' + target.pm + '\n 空氣AQI : ' + target.AQI + " \n";
-
+        var replyMsg = "城市 : "+target.County + "\n 觀測站 : " + target.SiteName + '\n PM2.5 : ' + target.pm + '\n 空氣AQI : ' + target.AQI +  '\n 風速 : ' + target.WindSpeed + '\n 監測時間 : ' + target.PublishTime +" \n\n";
+        replyMsg += getAQILevel(target.AQI);
         return replyMsg;
     },
-
 
     _getAQIJSON: function () {
         clearTimeout(timer);
