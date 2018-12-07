@@ -25,8 +25,8 @@ var server = app.listen(process.env.PORT || 8080, function () {
 
 function _botStart() {
     bot.on('message', function (event) {
-       var aqimsg =  aqi.npmfilter(event);
-       makeReplyMsg(event,aqimsg);
+       var sendMsg =  aqi.aqiReport(event);
+       makeReplyMsg(event,sendMsg);
     });
 
 }
