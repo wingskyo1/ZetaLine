@@ -46,7 +46,7 @@ function npmfilter(event) {
                 //console.log("開始尋找站台")
                 if (msg.indexOf(e.SiteName) != -1) {
                     console.log("有找到站台", e.SiteName);
-                    replyMsg = e.County + e.SiteName + '\n PM2.5 數值為 ' + e.pm + '\n 空氣品質 AQI 為 ' + e.AQI;
+                    replyMsg = e.County +"\n觀測台 : "+ e.SiteName + '\n PM2.5 : ' + e.pm + '\n 空氣AQI : ' + e.AQI;
                 }
             });
 
@@ -69,7 +69,7 @@ function npmfilter(event) {
             }
 
             if (replyMsg == '') {
-                replyMsg = '輸入的區域可能沒有空氣監測 ^_^|||, 是在什麼城市呢 ? (^ρ^)/ \n';
+                replyMsg = '輸入的區域可能沒有空氣監測 ^_^||| \n 在什麼城市呢 ? (^ρ^)/  \n\n';
                 distinctCountry.forEach(function (data, index) {
                     replyMsg += data + ", "
 
@@ -126,4 +126,15 @@ function _getAQIJSON() {
     timer = setInterval(_getAQIJSON, 1800000); //每半小時抓取一次新資料
 }
 
-//function _get
+function _getAQILevel(aqi){
+    var result ;
+    if(aqi > 100){
+        result = "快戴上口罩，要變人體空氣清淨機了！ \n _(┐「﹃ﾟ｡)_"
+    }
+    else if (aqi >50){
+        result = "還行還行，但又不太行呢！ \n (`・ω・´)";
+    }
+    else{
+        result ="今日も空気が美しいです。\n  ξ( ✿＞◡❛)";
+    }
+}
