@@ -67,7 +67,7 @@ function npmfilter(event) {
 
 function makeReplyMsg(event, msg) {
     event.reply(msg).then(function (data) {
-        console.log("我有印東西出來" + replyMsg);
+        console.log("我有印東西出來" + msg);
     }).catch(function (error) {
         console.log('error = '+error);
     });
