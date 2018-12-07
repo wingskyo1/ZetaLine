@@ -54,7 +54,7 @@ function npmfilter(event) {
 
             if (replyMsg === '') {
                 var targetCountry = findCountry(distinctCountry, msg)
-                if (targetCountry !== '') {
+                if (targetCountry !== undefined) {
                     console.log("沒找到站台但是有找到城市", targetCountry);
                     replyMsg += targetCountry + " 設有檢測站的區域有 \n "
                     const result = regionData.filter(data => data.County === targetCountry);
@@ -125,3 +125,5 @@ function _getAQIJSON() {
     });
     timer = setInterval(_getAQIJSON, 1800000); //每半小時抓取一次新資料
 }
+
+function _get
