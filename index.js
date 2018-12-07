@@ -28,12 +28,11 @@ function _botStart () {
         var sendMsg;
         console.log("收到 : "+event.message.text);
         if (event.message.text === "功能!") {
-            console.log("yes");
             sendMsg = "目前只有查詢空氣的功能，請輸入\"空氣!\"來查詢！";
         }
-        sendMsg = aqi.aqiReport(event);
+        sendMsg = aqi.aqiReport(event)===undefined?sendMsg:aqi.aqiReport(event);
 
-
+        //如果有訊息送出
         if (sendMsg !== undefined) {
             ResponseMsg(event, sendMsg);
         }
