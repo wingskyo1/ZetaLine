@@ -12,8 +12,8 @@ var bot = linebot({
 var timer;
 var regionData = [];
 var distinctCountry = [] ;
-_getJSON();
-setTimeout(()=>console.log("後面的 : "+distinctCountry) , 3000)
+_getAQIJSON();
+//setTimeout(()=>console.log("後面的 : "+distinctCountry) , 3000)
 
 
 _botStart();
@@ -94,8 +94,9 @@ function makeReplyMsg(event, msg) {
 function findCountry(distinctCountry, msg) {
 
     var targetCity = distinctCountry.find(function (data, index) {
-        return msg.indexOf(data) > -1;
+        return msg.indexOf(data.substring(0,2)) > -1;
     });
+    console.log(targetCity);
     return targetCity;
 }
 
@@ -103,7 +104,7 @@ function findCountry(distinctCountry, msg) {
 
 
 
-function _getJSON() {
+function _getAQIJSON() {
     clearTimeout(timer);
     getJSON('http://opendata.epa.gov.tw/webapi/api/rest/datastore/355000000I-000259/?format=json&sort=County', function (error, response) {
 
@@ -122,5 +123,5 @@ function _getJSON() {
         distinctCountry = [...new Set(regionData.map(x => x.County))];
         console.log("前面的 : "+distinctCountry);
     });
-    timer = setInterval(_getJSON, 1800000); //每半小時抓取一次新資料
+    timer = setInterval(_getAQIJSON, 1800000); //每半小時抓取一次新資料
 }
