@@ -26,7 +26,7 @@ module.exports = {
 
 
             if (replyMsg === '') {
-                var targetCountry = findCountry(distinctCountry, msg)
+                var targetCountry = this.findCountry(distinctCountry, msg)
                 if (targetCountry !== undefined) {
                     console.log("沒找到站台但是有找到城市", targetCountry);
                     replyMsg += targetCountry + " 設有檢測站的區域有 \n "
