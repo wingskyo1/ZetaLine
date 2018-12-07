@@ -28,7 +28,8 @@ function _botStart () {
         var sendMsg;
         console.log("收到 : "+event.message.text);
         if (event.message.text === "功能!") {
-            sendMsg = "目前只有查詢空氣的功能，請輸入\"空氣!\"來查詢！"
+            console.log("yes");
+            sendMsg = "目前只有查詢空氣的功能，請輸入\"空氣!\"來查詢！";
         }
         sendMsg = aqi.aqiReport(event);
 
