@@ -13,7 +13,7 @@ var timer;
 var regionData = [];
 
 _getJSON();
-var distinctCountry = [...new Set(regionData.map(x=>x.County))];
+var distinctCountry = [...new Set(regionData.map(x => x.County))];
 _bot();
 const app = express();
 const linebotParser = bot.parser();
@@ -58,23 +58,26 @@ function npmfilter(event) {
             });
             if (replyMsg == '') {
                 replyMsg = '輸入的區域可能沒有空氣監測 ^_^|||, 是在什麼城市呢 ? (^ρ^)/ \n';
-                distinctCountry.forEach(function(data,index){
-                    replyMsg += data + ", " 
+                distinctCountry.forEach(function (data, index) {
+                    replyMsg += data + ", "
 
                 })
             }
-            makeReplyMsg(event , replyMsg);
+
         }
-        return '';
+        if (replyMsg !== '') {
+            makeReplyMsg(event, replyMsg);
+        }
     }
-   
+
+
 }
 
 function makeReplyMsg(event, msg) {
     event.reply(msg).then(function (data) {
         console.log("我有印東西出來" + msg);
     }).catch(function (error) {
-        console.log('error = '+error);
+        console.log('error = ' + error);
     });
 }
 
@@ -92,7 +95,7 @@ function _getJSON() {
             regionData[i].PM10 = e.PM10 * 1;
 
         });
-        
+
         //console.log(distinctCountry);
     });
     timer = setInterval(_getJSON, 1800000); //每半小時抓取一次新資料
