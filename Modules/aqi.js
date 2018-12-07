@@ -20,7 +20,7 @@ module.exports = {
                 if (msg.indexOf(e.SiteName) != -1) {
                     console.log("有找到站台", e.SiteName);
                     replyMsg = e.County + "\n觀測台 : " + e.SiteName + '\n PM2.5 : ' + e.pm + '\n 空氣AQI : ' + e.AQI +" \n";
-                    replyMsg += this._getAQILevel(e.AQI);
+                    replyMsg += this.getAQILevel(e.AQI);
                 }
             });
 
@@ -95,7 +95,7 @@ _getAQIJSON:function  () {
     timer = setInterval(this._getAQIJSON, 1800000); //每半小時抓取一次新資料
 },
 
-_getAQILevel:function  (aqi) {
+getAQILevel:function  (aqi) {
     var result;
     if (aqi > 100) {
         result = "快戴上口罩，要變人體空氣清淨機了！ \n _(┐「﹃ﾟ｡)_"
@@ -106,5 +106,6 @@ _getAQILevel:function  (aqi) {
     else {
         result = "今日も空気が美しいです。\n  ξ( ✿＞◡❛)";
     }
+    return result;
 }
 };
