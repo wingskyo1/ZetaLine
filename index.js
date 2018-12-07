@@ -30,7 +30,7 @@ function _botStart () {
         if (event.message.text === "功能!") {
             sendMsg = "目前只有查詢空氣的功能，請輸入\"空氣!\"來查詢！";
         }
-        sendMsg = aqi.aqiReport(event)===undefined?sendMsg:aqi.aqiReport(event);
+        sendMsg = aqi.aqiReport(event);
 
         //如果有訊息送出
         if (sendMsg !== undefined) {
