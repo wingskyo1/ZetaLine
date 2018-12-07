@@ -39,7 +39,9 @@ var bot = linebot({
         var replyMsg = '';
         if (msg.match( /(pm2.5|空氣)/ )) {
             console.log("符合關鍵字");
-          regionData.forEach(function(e, i) {
+            console.log(regionData);
+           regionData.forEach(function(e, i) {
+               console.log("開始尋找站台")
             if (msg.indexOf(e.SiteName) != -1) {
                 console.log("有找到站台", e.SiteName);
                 replyMsg =e.County + e.SiteName + '\n PM2.5 數值為 ' + e.pm + '\n 空氣品質 AQI 為 '+e.AQI;
