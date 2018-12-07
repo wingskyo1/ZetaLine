@@ -41,7 +41,7 @@ var bot = linebot({
         if (msg.indexOf('PM2.5') != -1) {
           pm.forEach(function(e, i) {
             if (msg.indexOf(e[0]) != -1) {
-              replyMsg = e[0] + '的 PM2.5 數值為 ' + e[1];
+              replyMsg =e[1] + e[0] + '的 PM2.5 數值為 ' + e[3] + ' 空氣品質 AQI 為 '+e[2];
             }
           });
           if (replyMsg == '') {
@@ -65,14 +65,18 @@ function _getJSON() {
     clearTimeout(timer);
     getJSON('http://opendata.epa.gov.tw/webapi/api/rest/datastore/355000000I-000259/?format=json&sort=County', function(error, response) {
         console.log("json 權應啦  = "+JSON.stringify(response, null, 7));
+
+        var data = JSON.stringify(response, null, 7);
         console.log("回應內容 "+response);
         console.log("error"+error);
-    //   response.result.records.forEach(function(e, i) {
-    //     pm[i] = [];
-    //     pm[i][0] = e.SiteName;
-    //     pm[i][1] = e['PM2.5'] * 1;
-    //     pm[i][2] = e.PM10 * 1;
-    //   });
+        data.result.records.forEach(function(e, i) {
+         pm[i] = [];
+         pm[i][0] = e.SiteName;
+         pm[i][1] = e.County;
+         pm[i][2] = e.AQI;
+         pm[i][3] = e['PM2.5'] * 1;
+         pm[i][4] = e.PM10 * 1;
+       });
     });
     timer = setInterval(_getJSON, 1800000); //每半小時抓取一次新資料
   }
