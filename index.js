@@ -16,7 +16,7 @@ app.post('/', linebotParser);
 //因為 express 預設走 port 3000，而 heroku 上預設卻不是，要透過下列程式轉換
 var server = app.listen(process.env.PORT || 8080, function () {
     var port = server.address().port;
-    console.log("App now running on port", port);
+    console.log("App now running on this port", port);
 });
 //半小時更新ㄧ次，也可以改寫成呼叫就更新，外面會更乾淨，但要處理飛同步先不理他@Q@
 aqi._getAQIJSON();
