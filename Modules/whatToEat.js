@@ -9,7 +9,7 @@ module.exports = {
             var msg = event.message.text;
             var replyMsg = '';
             if (msg.match(/(吃什麼)/)) {
-                var date = new date();
+                var date = new Date();
                 if (date.gatTime() - lasttime < 5 * 60 * 1000) {
                     replyMsg = "你不能一直問哦~~~!";
                 } else {
