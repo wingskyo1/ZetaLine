@@ -28,7 +28,7 @@ _botStart();
 function _botStart () {
     bot.on('message', function (event) {
         var sendMsg;
-        console.log("收到 : "+event.message.text);
+        console.log(event.source.userId+" 傳送了  "+event.message.text);
         if (event.message.text === "功能!") {
             sendMsg = "目前只有查詢空氣的功能，請輸入\"空氣!\"來查詢！";
         }
