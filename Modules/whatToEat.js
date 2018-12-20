@@ -1,7 +1,7 @@
 var getJSON = require('get-json');
 
 var foodList = ["肯德基", "喬品", "鮮肉湯包", "阿蓮和粉", "名都飲食", "南豐滷肉飯", "凌波"];
-var lasttime;
+var lasttime=0;
 
 module.exports = {
     getFood: function (event) {
