@@ -1,6 +1,7 @@
 var linebot = require('linebot');
 var express = require('express');
 var aqi = require('./Modules/aqi');
+var whatToEat = require('./Modules/whatToEat');
 
 
 var bot = linebot({
@@ -20,6 +21,7 @@ var server = app.listen(process.env.PORT || 8080, function () {
 });
 //半小時更新ㄧ次，也可以改寫成呼叫就更新，外面會更乾淨，但要處理飛同步先不理他@Q@
 aqi._getAQIJSON();
+
 //機器人醒來開始收訊息
 _botStart();
 
@@ -31,6 +33,7 @@ function _botStart () {
             sendMsg = "目前只有查詢空氣的功能，請輸入\"空氣!\"來查詢！";
         }
         sendMsg = aqi.aqiReport(event);
+        sendMsg= (whatToEat.getFood(event)=="")?sendMsg:whatToEat.getFood(event);
 
         //如果有訊息送出
         if (sendMsg !== undefined) {
