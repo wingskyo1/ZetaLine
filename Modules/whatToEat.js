@@ -10,7 +10,9 @@ module.exports = {
             var replyMsg = '';
             if (msg.match(/(吃什麼)/)) {
                 var date = new Date();
-                if (date.getTime() - lasttime < 5 * 60 * 1000) {
+                var difference = date.getTime()-lasttime;
+                if (difference < 5 * 60 * 1000) {
+                    ｃonsole.log(difference)
                     replyMsg = "你不能一直問哦~~~! 每五分鐘才能問一次";
                 } else {
                     replyMsg = this.getRandomFood();
