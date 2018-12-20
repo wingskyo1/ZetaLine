@@ -25,15 +25,18 @@ aqi._getAQIJSON();
 //機器人醒來開始收訊息
 _botStart();
 
-function _botStart () {
+function _botStart() {
     bot.on('message', function (event) {
         var sendMsg;
-        console.log(event.source.userId+" 傳送了  "+event.message.text);
+        console.log(event.source.userId + " 傳送了  " + event.message.text);
         if (event.message.text === "功能!") {
             sendMsg = "目前只有查詢空氣的功能，請輸入\"空氣!\"來查詢！";
         }
         sendMsg = aqi.aqiReport(event);
-        sendMsg= (whatToEat.getFood(event)=="")?sendMsg:whatToEat.getFood(event);
+        
+        var foodMsg = whatToEat.getFood(event) ;
+
+        sendMsg = (foodMsg == "") ? sendMsg : foodMsg;
 
         //如果有訊息送出
         if (sendMsg !== undefined) {
@@ -42,11 +45,10 @@ function _botStart () {
     });
 }
 
-function ResponseMsg (event, msg) {
+function ResponseMsg(event, msg) {
     event.reply(msg).then(function (data) {
         console.log("回覆內容 : " + msg);
     }).catch(function (error) {
         console.log('error = ' + error);
     });
 }
-
