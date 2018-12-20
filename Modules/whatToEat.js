@@ -12,8 +12,8 @@ module.exports = {
                 var date = new Date();
                 var difference = date.getTime()-lasttime;
                 if (difference < 5 * 60 * 1000) {
-                    console.log("test" + date.getTime())
-                    console.log(difference)
+                    console.log("test : " + date.getTime())
+                    console.log("lasttime : "+ lasttime)
                     replyMsg = "你不能一直問哦~~~! 每五分鐘才能問一次";
                 } else {
                     replyMsg = this.getRandomFood();
