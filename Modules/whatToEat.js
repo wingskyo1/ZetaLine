@@ -17,7 +17,7 @@ module.exports = {
     },
 
     getRandomFood: function () {
-        var randomNum = Math.floor(Math.random()*(max+1));
+        var randomNum = Math.floor(Math.random()*(foodList.length+1));
         
         return foodList[randomNum];
     },
