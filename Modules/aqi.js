@@ -1,16 +1,16 @@
-var getJSON = require('get-json');
+const getJSON = require('get-json');
 
-var timer;
-var dataFromApi = [];
-var countryList = [];
-var targetCountry ='';
-var status = 0;
+let timer;
+let dataFromApi = [];
+let countryList = [];
+let targetCountry ='';
+let status = 0;
 
 module.exports = {
     aqiReport: function (event) {
         if (event.message.type == 'text') {
-            var msg = event.message.text;
-            var replyMsg = '';
+            const msg = event.message.text;
+            let replyMsg = '';
             if (msg.match(/(空氣!)/)) {
                 replyMsg = this.showCountry();
                 status = 1;
@@ -31,7 +31,7 @@ module.exports = {
         }
     },
     showCountry: function () {
-        var replyMsg = '想要查詢什麼城市的空氣品質呢 ? (^ρ^)/  \n\n';
+        let replyMsg = '想要查詢什麼城市的空氣品質呢 ? (^ρ^)/  \n\n';
         countryList.forEach(function (data, index) {
             replyMsg += index + ") " + data + ", "
         })
@@ -39,7 +39,7 @@ module.exports = {
     },
 
     showSiteList: function (countryIndex) {
-        var replyMsg = '';
+        let replyMsg = '';
         targetCountry = countryList[countryIndex];
         replyMsg += targetCountry + " 設有檢測站的區域有 \n "
         const result = dataFromApi.filter(data => data.County === targetCountry);
@@ -53,15 +53,15 @@ module.exports = {
     },
 
     showResult: function (siteIndex) {
-        var targetSiteList = dataFromApi.filter(data => data.County === targetCountry)
-        var target = targetSiteList[siteIndex];
-        var replyMsg = " 城市 : "+target.County + "\n觀測站 : " + target.SiteName + '\n\n PM2.5 : ' + target.pm + '\n 空氣AQI : ' + target.AQI +  '\n 風速 : ' + target.WindSpeed + '\n 監測時間 : ' + target.PublishTime +" \n\n";
+        let targetSiteList = dataFromApi.filter(data => data.County === targetCountry)
+        let target = targetSiteList[siteIndex];
+        let replyMsg = " 城市 : "+target.County + "\n觀測站 : " + target.SiteName + '\n\n PM2.5 : ' + target.pm + '\n 空氣AQI : ' + target.AQI +  '\n 風速 : ' + target.WindSpeed + '\n 監測時間 : ' + target.PublishTime +" \n\n";
         replyMsg += "小評：" + this.getAdvise(target.AQI);
         return replyMsg;
     },
 
     getAdvise: function (aqi) {
-        var result='';
+        let result='';
         if (aqi > 100) {
             result = "快戴上口罩，要變人體空氣清淨機了！ \n _(┐「﹃ﾟ｡)_"
         }
