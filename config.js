@@ -1,5 +1,3 @@
-
-
 module.exports = {
     bot: ({
         channelId: '1628760097',
@@ -11,4 +9,14 @@ module.exports = {
         channelSecret: '3ad4d8030b92afe9fa1359ca4b172cc3',
         channelAccessToken: 'Gp4vfmzBuI1lKntC1VS89OaL+eC6Z+d1KamkwsiyhY+2zAc0yDgaebSPukQFPKoi1kdoLNSt/zAztShxGUfl4LB8TI1GU8yF/BX2p0SP+kVKry6z5O9t9X4CfKVi4LiYRxlA2vqlPHV3aY6AogGT1wdB04t89/1O/w1cDnyilFU='
     }),
+
+    // location是中心點經緯度
+    // radius是搜尋範圍
+    // type是地點類型
+    // keyword是關鍵字
+    // key是金鑰
+    googleApi: ({
+        key: 'AIzaSyBWMobFUSui5AaaoIcRsjxeZZHEA4nrN6Q',
+        baseUrl: 'https://maps.googleapis.com/maps/api/place/nearbysearch/json?'
+    })
 }

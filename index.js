@@ -16,6 +16,7 @@ var server = app.listen(process.env.PORT || 8080, function () {
 //定時更新空氣資料
 aqi._getAQIJSON();
 
+
 //機器人醒來開始收訊息
 botModule._botStart();
 
