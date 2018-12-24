@@ -37,7 +37,7 @@ const quickReply = {
                 type: "action", // ④
                 action: {
                     type: "location",
-                    label: "給我你的地址"
+                    label: "傳送地址"
                 }
             }
         ]
