@@ -1,3 +1,6 @@
+var express = require('express');
+
+
 module.exports = {
     bot: ({
         channelId: '1628760097',
@@ -16,7 +19,7 @@ module.exports = {
     // keyword是關鍵字
     // key是金鑰
     googleApi: ({
-        key: 'AIzaSyBWMobFUSui5AaaoIcRsjxeZZHEA4nrN6Q',
+        key: process.env.GOOGLEAPIKEY,
         baseUrl: 'https://maps.googleapis.com/maps/api/place/nearbysearch/json?'
     })
 }
