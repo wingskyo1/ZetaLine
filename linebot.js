@@ -7,9 +7,10 @@ const config = require('./config');
 
 module.exports = {
     bot: linebot({
-        channelId: config.bot.channelId,
-        channelSecret: config.bot.channelSecret,
-        channelAccessToken: config.bot.channelAccessToken
+        channelId: process.env.channelId,
+        channelSecret: process.env.channelSecret,
+        channelAccessToken: process.env.channelAccessToken
+
     }),
 
     _botStart: function () {
@@ -38,90 +39,10 @@ module.exports = {
 
     ResponseMsg: function (event, msg) {
         event.reply(msg).then(function (data) {
-            console.log("回覆內容 : " + JSON.stringify(msg));
+          //  console.log("回覆內容 : " + JSON.stringify(msg));
         }).catch(function (error) {
             console.log('error = ' + error);
         });
     },
-    ResponseMsg2: function (event) {
-        event.reply({
-                "type": "flex",
-                "altText": "This is a Flex Message",
-                "contents": {
-                    "type": "carousel",
-                    "contents": [{
-                            "type": "bubble",
-                            "header": {
-                                "type": "box",
-                                "layout": "vertical",
-                                "contents": [{
-                                    "type": "text",
-                                    "text": "header"
-                                }]
-                            },
-                            "body": {
-                                "type": "box",
-                                "layout": "horizontal",
-                                "contents": [{
-                                    "type": "text",
-                                    "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-                                    "wrap": true
-                                }]
-                            },
-                            "hero": {
-                                "type": "image",
-                                "url": "https://example.com/flex/images/image.jpg",
-                                "size": "full",
-                                "aspectRatio": "2:1"
-                            },
-                            "footer": {
-                                "type": "box",
-                                "layout": "horizontal",
-                                "contents": [{
-                                    "type": "button",
-                                    "style": "primary",
-                                    "action": {
-                                        "type": "uri",
-                                        "label": "Go",
-                                        "uri": "https://example.com"
-                                    }
-                                }]
-                            }
-                        },
-                        {
-                            "type": "bubble",
-                            "body": {
-                                "type": "box",
-                                "layout": "horizontal",
-                                "contents": [{
-                                    "type": "text",
-                                    "text": "Hello, World!",
-                                    "wrap": true
-                                }]
-                            },
-                            "hero": {
-                                "type": "image",
-                                "url": "https://i.imgur.com/pXlNbn6.jpg",
-                                "size": "full",
-                                "aspectRatio": "2:1"
-                            },
-                            "footer": {
-                                "type": "box",
-                                "layout": "horizontal",
-                                "contents": [{
-                                    "type": "button",
-                                    "style": "primary",
-                                    "action": {
-                                        "type": "uri",
-                                        "label": "Go",
-                                        "uri": "https://example.com"
-                                    }
-                                }]
-                            }
-                        }
-                    ]
-                }
-            }
-        );
-    }
+   
 }

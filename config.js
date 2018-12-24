@@ -2,14 +2,7 @@ var express = require('express');
 
 
 module.exports = {
-    bot: ({
-        channelId: process.env.channelId,
-        channelSecret: process.env.channelSecret,
-        channelAccessToken: process.env.channelAccessToken
-    }),
 
-
-    
     googleApi: ({
         key: process.env.GOOGLEAPIKEY,
         // location是中心點經緯度
