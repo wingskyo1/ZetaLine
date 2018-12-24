@@ -7,7 +7,7 @@ module.exports = {
             const msg = event.message.text;
             const userID = event.source.userId;
             let replyMsg = '';
-            if (msg.match(/(吃asdasda)/)) {
+            if (msg.match(/(舊的吃什麼)/)) {
                 const date = new Date();
                 let difference = (date.getTime() - userlist[userID]) / 1000;
                 let needToWait = 300 - difference;

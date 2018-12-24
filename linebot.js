@@ -15,22 +15,19 @@ module.exports = {
     _botStart: function () {
         const outThis = this;
 
-        this.bot.on('message', function (event) {
-            console.log(event.source.userId + " 傳送了  " + event.message.text + event.message.latitude +" : "+event.message.longitude);
+        this.bot.on('message', async function (event) {
+            console.log(event.source.userId + " 傳送了  " + event.message.text + event.message.latitude + " : " + event.message.longitude);
             let sendMsg;
             if (event.message.text === "功能!") {
                 sendMsg = "目前只有查詢空氣的功能，請輸入\"空氣!\"來查詢！";
             }
 
-            //outThis.ResponseMsg2(event);
+            let userInfo;
+            await event.source.profile(event.source.userId).then(function (profile) {
+                userInfo = profile.displayName;
+            });
 
-            //空氣
-            //let aqiMsg = aqi.aqiReport(event);
-            //sendMsg = aqiMsg || sendMsg;
-            //
-            //let foodMsg = whatToEat.getFood(event);
-            sendMsg = aqi.aqiReport(event) || whatToEat.getFood(event) || eatByGoogle.getFood(event);
-
+            sendMsg = aqi.aqiReport(event) || whatToEat.getFood(event) || await eatByGoogle.getFood(event,userInfo);
 
             //如果有訊息則送出
             if (sendMsg !== undefined) {
@@ -46,44 +43,4 @@ module.exports = {
             console.log('error = ' + error);
         });
     },
-
-    ResponseMsg2: function (event) {
-        event.reply({
-            type: "text", // ①
-            text: "Select your favorite food category or send me your location!",
-            quickReply: { // ②
-                items: [{
-                        type: "action", // ③
-                        imageUrl: "https://example.com/sushi.png",
-                        action: {
-                            type: "message",
-                            label: "Sushi",
-                            text: "Sushi"
-                        }
-                    },
-                    {
-                        type: "action",
-                        imageUrl: "https://example.com/tempura.png",
-                        action: {
-                            type: "message",
-                            label: "Tempura",
-                            text: "Tempura"
-                        }
-                    },
-                    {
-                        type: "action", // ④
-                        action: {
-                            type: "location",
-                            label: "給我你的地址"
-                        }
-                    }
-                ]
-            }
-        });
-    }
-
-
-
-
-
 }
