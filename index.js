@@ -11,7 +11,9 @@ app.post('/', linebotParser);
 var server = app.listen(process.env.PORT || 8080, function () {
     var port = server.address().port;
     console.log("App now running on this port", port);
+    
 });
+
 
 //定時更新空氣資料
 aqi._getAQIJSON();
