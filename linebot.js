@@ -7,9 +7,9 @@ const config = require('./config');
 
 module.exports = {
     bot: linebot({
-        channelId: config.testbot.channelId,
-        channelSecret: config.testbot.channelSecret,
-        channelAccessToken: config.testbot.channelAccessToken
+        channelId: config.bot.channelId,
+        channelSecret: config.bot.channelSecret,
+        channelAccessToken: config.bot.channelAccessToken
     }),
 
     _botStart: function () {
