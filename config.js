@@ -2,7 +2,6 @@ var express = require('express');
 
 
 module.exports = {
-
     googleApi: ({
         key: process.env.GOOGLEAPIKEY,
         // location是中心點經緯度
