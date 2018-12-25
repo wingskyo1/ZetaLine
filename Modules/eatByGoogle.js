@@ -47,27 +47,44 @@ async function getFood(event, userInfo) {
 
 
 const getResultByGoogleAPI = async function (userInfo, lat, lng, type = 'restaurant', keyword = '') {
-    var url = config.googleApi.baseUrl + "location=" + lat + "," + lng + "&radius=" + 1000 + "&type=" + type + "&keyword=" + keyword + "&key=" + config.googleApi.key + "&language=zh-TW";
-    var responseMsg = "";
+    const url = config.googleApi.baseUrl + "location=" + lat + "," + lng + "&radius=" + 1000 + "&type=" + type + "&keyword=" + keyword + "&key=" + config.googleApi.key + "&language=zh-TW";
+    let responseMsg = "";
     console.log(url);
-    var searchData = await getJSON(encodeURI(url));
+    const searchData = await getJSON(encodeURI(url));
+    responseMsg = await formFlexJson(searchData);
+    return responseMsg;
+}
 
-    responseMsg = flexTemplate.flexTopTemplate();
+async function formFlexJson(searchData){
+    //getHeader
+    let flexJson = flexTemplate.flexTopTemplate();
+    //form the contents
     for (let i = 1; i <= 5; i++) {
         let target = searchData.results[getRandomFood(searchData.results) - 1]
         let flexModel = new placeInfo(target)
         await fillPlaceUrl(flexModel, target.place_id);
-
         let flexComponent = flexTemplate.flexContentTemplate(flexModel);
-        responseMsg.contents.contents.push(flexComponent)
+    //push in
+        flexJson.contents.contents.push(flexComponent)
     }
-    return responseMsg;
+    return flexJson
 }
 
 function getRandomFood(results) {
     let randomNum = Math.floor(Math.random() * (results.length) + 1);
     return randomNum;
 }
+
+
+//fill cid url into target.place
+async function fillPlaceUrl(target, placeID) {
+    const url = config.googleApi.placeUrl + "placeid=" + placeID + "&key=" + config.googleApi.key + "&fields=url";
+    await getJSON(url).then((response) => {
+        target.place = response.result.url;
+    });
+}
+
+
 
 class placeInfo {
     constructor(data) {
@@ -78,21 +95,11 @@ class placeInfo {
         this.place = '' //placeInfo.getPlaceUrl(data.place_id);
         //placeInfo.getPhotoUrl(data);
     }
-
     static getPhotoUrl(data) {
         const url = data.photos == undefined ? 'https://pic.pimg.tw/tsaichengling/1365423647-3598991700.jpg' :
             config.googleApi.photoUrl + "maxwidth=400&photoreference=" + data.photos[0].photo_reference + "&key=" + config.googleApi.key;
         return url
     }
-
-
-}
-//fill cid url into target.place
-async function fillPlaceUrl(target, placeID) {
-    const url = config.googleApi.placeUrl + "placeid=" + placeID + "&key=" + config.googleApi.key + "&fields=url";
-    await getJSON(url).then((response) => {
-        target.place = response.result.url;
-    });
 }
 
 

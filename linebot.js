@@ -19,7 +19,8 @@ function _botStart() {
             sendMsg = "目前只有查詢空氣的功能，請輸入\"空氣!\"來查詢！";
         }
         sendMsg = aqi.aqiReport(event) || await eatByGoogle.getFood(event, userInfo);
-        //如果有訊息則送出
+
+        
         if (sendMsg) {
             ResponseMsg(event, sendMsg);
         }
