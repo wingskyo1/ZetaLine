@@ -1,8 +1,6 @@
 const linebot = require('linebot');
 const aqi = require('./Modules/aqi');
-const whatToEat = require('./Modules/whatToEat');
 const eatByGoogle = require('./Modules/eatByGoogle')
-const config = require('./config');
 
 
 module.exports = {
@@ -28,7 +26,7 @@ module.exports = {
                 userInfo = profile.displayName;
             });
 
-            sendMsg = aqi.aqiReport(event) || whatToEat.getFood(event) || await eatByGoogle.getFood(event,userInfo);
+            sendMsg = aqi.aqiReport(event) || await eatByGoogle.getFood(event,userInfo);
             //outThis.ResponseMsg2(event);
             //如果有訊息則送出
             if (sendMsg !== undefined) {
