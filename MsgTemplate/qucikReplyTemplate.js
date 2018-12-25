@@ -55,5 +55,7 @@ const quickFindPlace = {
 
 
 
-module.exports.quickReply = quickReply;
-module.exports.quickFindPlace = quickFindPlace;
+module.exports ={
+    quickReply,
+    quickFindPlace
+}

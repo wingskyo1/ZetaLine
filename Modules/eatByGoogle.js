@@ -50,7 +50,9 @@ const getResultByGoogleAPI = async function (userInfo, lat, lng, type = 'restaur
     const url = config.googleApi.baseUrl + "location=" + lat + "," + lng + "&radius=" + 1000 + "&type=" + type + "&keyword=" + keyword + "&key=" + config.googleApi.key + "&language=zh-TW";
     let responseMsg = "";
     console.log(url);
+    //get data from google
     const searchData = await getJSON(encodeURI(url));
+    //combine a flexJson with data
     responseMsg = await formFlexJson(searchData);
     return responseMsg;
 }

@@ -72,6 +72,7 @@ function flexContentTemplate(data) {
     };
 }
 
-
-module.exports.flexTopTemplate = flexTopTemplate;
-module.exports.flexContentTemplate = flexContentTemplate;
+module.exports = {
+    flexContentTemplate,
+    flexTopTemplate
+}
